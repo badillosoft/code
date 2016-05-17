@@ -14,24 +14,20 @@ lo deseas como *twitter*, *facebook*, *github* u otros.
 
 * __polish.js__ `Javascript` - Convierte una expresión matemática en una pila polaca.
 
-> Ejemplo
+> `parse(expr : string) -> string` - Convierte una expresión matemática y la devuelve en una cadena
 
-~~~js
-const polish = requiere('./polish').new;
+> `queue : []` - Contiene la pila de operandos y operadores después de ejecutar `parse()`
 
-polish.parse('1 + 2 + 3 * 4 + 5 - 6 / 7');
+> `eval(variables : { name: value }) -> number` - Evalua la pila sustituyendo las variables por su valor
 
-console.log(polish.queue);
+> `Polish.isNumber(expr) -> bool` - Determina si la expresión comienza con un número
 
-console.log(polish.eval());
+> `Polish.number(expr) -> string` - Devuelve el primer número si la cadena comienza con un número
 
-polish.parse('x + y^2 - 3 * (x - 2 * y) + sin(x * cos(y + exp(2)))');
+> `Polish.isOperator(expr) -> bool` - Determina si la expresión comienza con un operador
 
-console.log(polish.queue);
+> `Polish.operator(expr) -> string` - Devuelve un operador si la cadena comienza con un operador
 
-console.log(polish.eval({
-    x: 1,
-    y: 3
-}));
-~~~
+> `Polish.word(expr) -> string` - Devuelve la primer palabra si se comienza con una palabra
 
+> `Polish.new -> <Polish>` - Devuelve una nueva instancia de la clase _Polish_

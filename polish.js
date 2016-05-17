@@ -89,9 +89,13 @@ class Polish {
             }
         } while(result.token !== 'end');
         
+        this.result = this.queue.join(' ');
+        
         if (!this.silence) {
-            console.log('Polish:', this.queue.join(' '));
+            console.log('Polish:', this.result);
         }
+        
+        return this.result;
     }
     
     token(i) {
