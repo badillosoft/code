@@ -43,20 +43,21 @@ class Polish {
             this[k] = options[k];
         }
         
-        this.queue = this.queue || [];
-        this.operators = this.operators || [];
         this.expr = this.expr || '';
     }
     
     parse(expr) {
+        this.queue = [];
+        this.operators = [];
+        
+        if (!this.silence) {
+            console.log('Expr:', expr || this.expr);
+        }
+        
         this.expr = (expr || this.expr).replace(/\s+/ig, '');
         
         if (this.expr.match(/^\-/)) {
             this.expr = `0${this.expr}`;
-        }
-        
-        if (!this.silence) {
-            console.log('Expr:', this.expr);
         }
         
         var result, pos = 0;
@@ -82,9 +83,9 @@ class Polish {
             pos = result.pos;
             
             if (this.debug) {
-                console.log('Token result:', result);
-                console.log('Queue:', this.queue);
-                console.log('Operator Queue:', this.operators);
+                console.log('\tToken result:', result);
+                console.log('\tQueue:', this.queue);
+                console.log('\tOperator Queue:', this.operators);
             }
         } while(result.token !== 'end');
         
@@ -105,7 +106,7 @@ class Polish {
         }
         
         if (this.debug) {
-            console.log('Token:', aux, 'pos:', i);
+            console.log('\tToken:', aux, 'pos:', i);
         }
         
         if (Polish.isNumber(aux)) {
@@ -114,7 +115,7 @@ class Polish {
             i += r[1].length;
             
             if (this.debug) {
-                console.log('Number:', r[1], 'pos:', i);
+                console.log('\tNumber:', r[1], 'pos:', i);
             }
             
             return {
@@ -131,7 +132,7 @@ class Polish {
             i += r[1].length;
             
             if (this.debug) {
-                console.log('Operator:', r[1], 'pos:', i);
+                console.log('\tOperator:', r[1], 'pos:', i);
             }
             
             return {
@@ -147,7 +148,7 @@ class Polish {
         i += r[1].length;
             
         if (this.debug) {
-            console.log('Variable:', r[1], 'pos:', i);
+            console.log('\tVariable:', r[1], 'pos:', i);
         }
         
         return {
@@ -156,6 +157,66 @@ class Polish {
             expr: r[2],
             pos: i
         };
+    }
+    
+    nextOperator() {
+        for (var i = 0; i < this.queue.length; i++) {
+            const value = this.queue[i];
+            
+            if (`${value}`.match(/^[\+\-\*\/]$/)) {
+                return i;
+            }
+        }
+        
+        return -1;
+    }
+    
+    eval(variables) {
+        if (!this.silence) {
+            console.log('--------------------------------------------');
+        }
+        
+        variables = variables || {};
+        
+        var pos;
+        
+        do {
+            pos = this.nextOperator();
+            
+            if (pos < 0) {
+                break;
+            }
+            
+            var a = this.queue[pos - 2];
+            var b = this.queue[pos - 1];
+            const op = this.queue[pos];
+            
+            if (a in variables) {
+                a = variables[a]
+            }
+            
+            if (b in variables) {
+                b = variables[b]
+            }
+            
+            const expr = `${a} ${op} ${b}`;
+            const result = eval(expr);
+            
+            this.queue.splice(pos - 2, 3, result);
+            
+            if (this.debug) {
+                console.log('\tEval:', expr, '=', result);
+                console.log('\tQueue:', this.queue);
+            }
+            
+        } while(pos >= 0);
+        
+        if (!this.silence) {
+            console.log('Eval:', this.queue[0]);
+            console.log('--------------------------------------------');
+        }
+        
+        return this.queue[0];
     }
 }
 
