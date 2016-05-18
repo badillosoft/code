@@ -34,3 +34,6 @@ lo deseas como *twitter*, *facebook*, *github* u otros.
 
 * __repeater.rb__ `Ruby` -  Repite fragmentos de texto y los guarda en un archivo
 variando parámetros mediante una función
+
+> `for(a : number, b : number, inc : number = 1)` - Itera del valor `a` al `b` con incrementos `inc`
+y mantiene un bloque que devuelve el texto a escribir por cada iteración 
