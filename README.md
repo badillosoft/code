@@ -31,3 +31,6 @@ lo deseas como *twitter*, *facebook*, *github* u otros.
 > `Polish.word(expr) -> string` - Devuelve la primer palabra si se comienza con una palabra
 
 > `Polish.new -> <Polish>` - Devuelve una nueva instancia de la clase _Polish_
+
+* __repeater.rb__ `Ruby` -  Repite fragmentos de texto y los guarda en un archivo
+variando parámetros mediante una función
