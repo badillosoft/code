@@ -1,3 +1,12 @@
+/**
+* @author Alan Badillo Salas
+* @email badillo.soft@hotmail.com
+* @github https://github.com/badillosoft/code/
+*
+* @date 2016/06/07
+* @version 1.0
+*/
+
 #include <iostream>
 #include <fstream>
 #include <string>
