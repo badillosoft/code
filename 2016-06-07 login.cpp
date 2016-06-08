@@ -13,6 +13,11 @@
 
 using namespace std;
 
+// Intenta recuperar el usuario y la contraseña
+// del archivo sesion.dat (archivo plano) y los
+// asgina a las variables referenciadas. Si
+// no existe el archivo solicita los valores mediante
+// la entrada estándar y crea un nuevo archivo.
 void login(string &usuario, string &clave) {
 	ifstream fr;
 	
@@ -20,18 +25,19 @@ void login(string &usuario, string &clave) {
 
 	if (!fr.is_open()) {
 		// El archivo de sesión no existe
-		// Crear un archivo con los datos del usuario.
-
+		
+		// Solicitamos los datos de usuario y contraseña
 		cout << "Usuario: ";
 		cin >> usuario;
 
 		clave = getpass("Clave: ");
 
+		// Creamos el archivo de sesión
 		ofstream fw;
 		
-		// Creamos el archivo de sesión
 		fw.open("sesion.dat");
 
+		// Guardamos cada valor en una línea
 		fw << usuario << endl;
 		fw << clave << endl;
 
@@ -40,7 +46,8 @@ void login(string &usuario, string &clave) {
 		// Recuperamos el usuario y la clave del archivo de sesión
 		getline(fr, usuario);
 		getline(fr, clave);
-    	fr.close();
+
+		fr.close();
 	}
 }
 
