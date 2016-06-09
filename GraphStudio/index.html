@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Automata Studio - Alan Badillo</title>
+		
+		<link rel="stylesheet" href="main.css">
+		
+		<script src="app.js"></script>
+	</head>
+	<body>
+		<canvas id="canvas" width="800px" height="590px"></canvas>
+		
+		<div class="panel">
+			Acciones:
+			<button onclick="graph.action = 'create'">Crear nodo</button>
+			<button onclick="graph.action = 'move'">Mover nodo</button>
+			<button onclick="graph.action = 'select'">Seleccionar nodo</button>
+			<button onclick="graph.action = 'delete'">Borrar nodo</button>
+			<button onclick="graph.action = 'connect'">Conectar nodos</button>
+			<button onclick="graph.action = 'color'">Cambiar color</button>
+			<button onclick="graph.action = 'path'">Buscar Ruta</button>
+		</div>
+	</body>
+</html>
